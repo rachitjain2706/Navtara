@@ -11,7 +11,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <h1>NAVTARA - A medical inventory</h1>
+        <h1>NAVTARA - A medicine hub</h1>
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
