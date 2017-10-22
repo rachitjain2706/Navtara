@@ -21,6 +21,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
+        <h1>NAVTARA - A medicine inventory</h1>
         <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
             <div class="container">
                 <div class="navbar-header">
