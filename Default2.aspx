@@ -14,8 +14,7 @@
 
 			<div class="tab-content clearfix">
 			    <div class="tab-pane active" id="1b">
-                    <h3>Hola</h3>
-                    <asp:Table runat="server">
+                    <asp:Table runat="server" CssClass="table table-bordered">
                         <asp:TableRow>
                           <asp:TableCell Text="Trade Name"></asp:TableCell>
                           <asp:TableCell><asp:TextBox runat="server" ID="trade_name"></asp:TextBox></asp:TableCell>
@@ -28,8 +27,9 @@
                           <asp:TableCell Text="Vendor List"></asp:TableCell>
                           <asp:TableCell>
                               <asp:DropDownList runat="server" ID="vendor_list">
-                                <asp:ListItem Text="A">A</asp:ListItem>
-                                <asp:ListItem Text="B">B</asp:ListItem>
+                                <asp:ListItem Value="Aasdasdasds">Aasdasdadas</asp:ListItem>
+                                <asp:ListItem Value="C">Casdasd</asp:ListItem>
+                                <asp:ListItem Value="B">Bsadasd</asp:ListItem>
                               </asp:DropDownList>
                           </asp:TableCell>
                         </asp:TableRow>
