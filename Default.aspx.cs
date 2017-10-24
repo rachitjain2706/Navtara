@@ -11,4 +11,17 @@ public partial class _Default : System.Web.UI.Page
     {
 
     }
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        string email = TextBox1.Text;
+        string password = TextBox2.Text;
+        if(email.Equals("email@gmail.com"))
+        {
+            if(password.Equals("password"))
+            {
+                Response.Redirect("~/Medicines.aspx");
+            }
+        }
+    }
 }
