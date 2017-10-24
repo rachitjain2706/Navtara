@@ -24,6 +24,10 @@
                           <asp:TableCell><asp:TextBox runat="server" ID="gen_name"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
+                          <asp:TableCell Text="Medicine Description"></asp:TableCell>
+                          <asp:TableCell><asp:TextBox runat="server" ID="med_desc"></asp:TextBox></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow>
                           <asp:TableCell Text="Vendor List"></asp:TableCell>
                           <asp:TableCell>
                               <asp:DropDownList runat="server" ID="vendor_list">
@@ -45,15 +49,10 @@
                     </asp:Table>
 			    </div>
                 <div class="tab-pane" id="2b">
-                    <h3>No</h3>
                     <asp:Table runat="server" CssClass="table table-bordered">
                         <asp:TableRow>
                           <asp:TableCell Text="Medicine Name"></asp:TableCell>
                           <asp:TableCell><asp:TextBox runat="server" ID="TextBox1"></asp:TextBox></asp:TableCell>
-                        </asp:TableRow>
-                        <asp:TableRow>
-                          <asp:TableCell Text="Generic Name"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="TextBox2"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell Text="Vendor List"></asp:TableCell>
@@ -63,12 +62,8 @@
                           </asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
-                          <asp:TableCell Text="Selling Price"></asp:TableCell>
+                          <asp:TableCell Text="Quantity"></asp:TableCell>
                           <asp:TableCell><asp:TextBox runat="server" ID="TextBox3"></asp:TextBox></asp:TableCell>
-                        </asp:TableRow>
-                        <asp:TableRow>
-                          <asp:TableCell Text="Purchasing price"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="TextBox4"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell></asp:TableCell>
@@ -77,7 +72,16 @@
                     </asp:Table>
 				</div>
                 <div class="tab-pane" id="3b">
-                    <h3>Yes</h3>
+                    <asp:Table runat="server" CssClass="table table-bordered" ID="t3">
+                        <asp:TableHeaderRow>
+                          <asp:TableHeaderCell Text="Medicine Name"></asp:TableHeaderCell>
+                          <asp:TableHeaderCell Text="Quantity"></asp:TableHeaderCell>
+                          <asp:TableHeaderCell Text="Purchase Date"></asp:TableHeaderCell>
+                          <asp:TableHeaderCell Text="Expiry Date"></asp:TableHeaderCell>
+                          <asp:TableHeaderCell Text="Batch Number"></asp:TableHeaderCell>
+                          <asp:TableHeaderCell Text="Vendor Name"></asp:TableHeaderCell>
+                        </asp:TableHeaderRow>
+                    </asp:Table>
 		        </div>
 			</div>
         </div>

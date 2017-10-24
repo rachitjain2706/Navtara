@@ -33,9 +33,9 @@
                 </div>
                 <div class="collapse navbar-collapse navbar-menubuilder">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/medicines">Medicines</a> </li>
-                        <li><a href="/vendors">Vendors</a> </li>
-                        <li><a href="/sales">Sales</a> </li>
+                        <li><a href="/medicines.aspx">Medicines</a> </li>
+                        <li><a href="/vendors.aspx">Vendors</a> </li>
+                        <li><a href="/sales.aspx">Sales</a> </li>
                     </ul>
                 </div>
             </div>
