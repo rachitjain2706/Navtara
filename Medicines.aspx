@@ -71,7 +71,7 @@
                         </asp:TableRow>
                     </asp:Table>
 				</div>
-                <div class="tab-pane" id="3b">
+                <div class="tab-pane" id="3b" onclick="<% inventory_diplay();%>">
                     <asp:Table runat="server" CssClass="table table-bordered" ID="t3">
                         <asp:TableHeaderRow>
                           <asp:TableHeaderCell Text="Medicine Name"></asp:TableHeaderCell>
