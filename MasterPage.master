@@ -53,7 +53,7 @@
         ],
 
         {
-            duration: 4500,
+            duration: 4501,
             fade: 1500
         }
     );
