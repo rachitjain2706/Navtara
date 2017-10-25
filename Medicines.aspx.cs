@@ -87,5 +87,67 @@ public partial class Default2 : System.Web.UI.Page
             con.Close();
         }
     }
+
+    protected string vendorCodeGenerated(string name)
+    {
+        string vendorCode = "";
+        for(int i=0; i<3; i++)
+        {
+            vendorCode += name[i];
+        }
+        for(int i=name.Length; i>name.Length-3; i--)
+        {
+            vendorCode += name[i];
+        }
+        return vendorCode;
+    }
+
+    public string medicineCodeGenerated(string name, string nam)
+    {
+        string medicineCode = "ALE - ";
+        for (int i = 0; i < 3; i++)
+        {
+            medicineCode += name[i];
+        }
+        for (int i = name.Length; i > name.Length - 3; i--)
+        {
+            medicineCode += nam[i];
+        }
+        //Response.Write("<script>alert(medicineCode)</script>");
+        l2.Text = medicineCode;
+        return medicineCode;
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
+
+        try
+        {
+            con.Open();
+            string query = "insert into medicine values(@medicine_code, @generic_name, @trade_name, @purchasing_price, @selling_price, @description, @vendor_code)";
+            SqlCommand cmd1 = new SqlCommand(query, con);
+            string med_code = medicineCodeGenerated(gen_name.Text, trade_name.Text);
+            l2.Text = med_code;
+            cmd1.Parameters.AddWithValue("@medicine_code", med_code);
+            cmd1.Parameters.AddWithValue("@generic_name", gen_name.Text);
+            cmd1.Parameters.AddWithValue("@trade_name", trade_name.Text);
+            cmd1.Parameters.AddWithValue("@description", med_desc.Text);
+            cmd1.Parameters.AddWithValue("@purchasing_price", pp.Text);
+            cmd1.Parameters.AddWithValue("@selling_price", sp.Text);
+            //string name = vendor_list.SelectedIndex.ToString();
+            cmd1.Parameters.AddWithValue("@vendor_code", vendor_list.SelectedIndex);
+            cmd1.ExecuteNonQuery();
+        }
+        catch(Exception exc)
+        {
+
+        }
+        finally
+        {
+            con.Close();
+        }
+    }
 }
  
