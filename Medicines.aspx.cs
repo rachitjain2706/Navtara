@@ -126,16 +126,28 @@ public partial class Default2 : System.Web.UI.Page
         return code;
     }
 
+    public void insertIntoVendor(SqlConnection con, string address, string name, string code, string med_code)
+    {
+        string query = "insert into vendor values(@vendor_code, @vendor_name, @address, @med_code)";
+        SqlCommand cmd1 = new SqlCommand(query, con);
+        cmd1.Parameters.AddWithValue("@vendor_code", code);
+        cmd1.Parameters.AddWithValue("@vendor_name", name);
+        cmd1.Parameters.AddWithValue("@address", address);
+        cmd1.Parameters.AddWithValue("@med_code", med_code);
+        int rows = cmd1.ExecuteNonQuery();
+        if (rows > 0)
+        {
+        }
+    }
+
     protected void Button1_Click(object sender, EventArgs e)
     {
         SqlConnection con = new SqlConnection();
         con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
-        //Response.Write("<script>alert('Hola')</script>");
         try
         {
             con.Open();
             string med_code = medicineCodeGenerated(gen_name.Text, trade_name.Text);
-            //string vendor_code = vendorCodeGenerated(vendor_list.SelectedValue);
             string vendor_code = vendorCode(vendor_list.SelectedValue);
             string query = "insert into medicine values(@medicine_code, @generic_name, @trade_name, @purchasing_price, @selling_price, @description, @vendor_code)";
             SqlCommand cmd1 = new SqlCommand(query, con);
@@ -169,22 +181,14 @@ public partial class Default2 : System.Web.UI.Page
                 address = reader["address"].ToString();
                 vendor_name = reader["vendor_name"].ToString();
             }
+            reader.Close();
             l2.Text = address;
-            query = "insert into vendor values(@vendor_code, @vendor_name, @address, @med_code)";
-            cmd1 = new SqlCommand(query, con);
-            cmd1.Parameters.AddWithValue("@vendor_code", vendor_code);
-            cmd1.Parameters.AddWithValue("@vendor_name", vendor_name);
-            cmd1.Parameters.AddWithValue("@address", address);
-            cmd1.Parameters.AddWithValue("@med_code", med_code);
-            rows = cmd1.ExecuteNonQuery();
-            if(rows > 0)
-            {
-                Response.Write("<script>alert('Lowla')</script>");
-            }
+
+            insertIntoVendor(con, address, vendor_name, vendor_code, med_code);
         }
         catch(Exception exc)
         {
-
+            l2.Text = exc.ToString();
         }
         finally
         {
