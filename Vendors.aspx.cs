@@ -18,23 +18,72 @@ public partial class Vendors : System.Web.UI.Page
             {
                 con.Open();
 
-                SqlCommand cmd = new SqlCommand("select distinct medicine_code, generic_name from medicine", con);
-                SqlDataReader reader;
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
+                SqlCommand cmd1 = new SqlCommand("select distinct medicine_code, generic_name from medicine", con);
+                SqlDataReader reader1;
+                reader1 = cmd1.ExecuteReader();
+                while (reader1.Read())
                 {
-                    medicine_list.Items.Add(reader["medicine_code"].ToString());
+                    medicine_list.Items.Add(reader1["medicine_code"].ToString());
                 }
-                reader.Close();
+                reader1.Close();
+
+                //SqlCommand cmd = new SqlCommand("select vendor_code, sum(sale_cost) AS total_sale from vendorsales group by vendor_code", con);
+                //SqlDataReader reader;
+                //reader = cmd.ExecuteReader();
+                //while (reader.Read())
+                //{
+                //    TableRow tr = new TableRow();
+                //    TableCell tc = new TableCell();
+                //    TableCell tc2 = new TableCell();
+                //    tc.Text = reader["vendor_code"].ToString();
+                //    tr.Cells.Add(tc);
+                //    tc2.Text = reader["total_sale"].ToString();
+                //    tr.Cells.Add(tc2);
+                //    vendorPaymentTable.Rows.Add(tr);
+                //}
+                //reader.Close();
             }
             catch (Exception exc)
             {
-
+                l2.Text = exc.ToString();
             }
             finally
             {
                 con.Close();
             }
+        }
+    }
+
+    protected void rokdaShow()
+    {
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
+        try
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("select vendor_code, sum(sale_cost) AS total_sale from vendorsales group by vendor_code", con);
+            SqlDataReader reader;
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                TableRow tr = new TableRow();
+                TableCell tc = new TableCell();
+                TableCell tc2 = new TableCell();
+                tc.Text = reader["vendor_code"].ToString();
+                tr.Cells.Add(tc);
+                tc2.Text = reader["total_sale"].ToString();
+                tr.Cells.Add(tc2);
+                vendorPaymentTable.Rows.Add(tr);
+            }
+            reader.Close();
+        }
+        catch (Exception exc)
+        {
+            l2.Text = exc.ToString();
+        }
+        finally
+        {
+            con.Close();
         }
     }
 
@@ -97,52 +146,8 @@ public partial class Vendors : System.Web.UI.Page
         try
         {
             con.Open();
-            //    string med_code = medicineCodeGenerated(gen_name.Text, trade_name.Text);
-            //    string vendor_code = vendorCode(medicine_list.SelectedValue);
-            //    string query = "insert into medicine values(@medicine_code, @generic_name, @trade_name, @purchasing_price, @selling_price, @description, @vendor_code)";
-            //    SqlCommand cmd1 = new SqlCommand(query, con);
-            //    cmd1.Parameters.AddWithValue("@medicine_code", med_code);
-            //    cmd1.Parameters.AddWithValue("@generic_name", gen_name.Text);
-            //    cmd1.Parameters.AddWithValue("@trade_name", trade_name.Text);
-            //    cmd1.Parameters.AddWithValue("@description", med_desc.Text);
-            //    cmd1.Parameters.AddWithValue("@purchasing_price", pp.Text);
-            //    cmd1.Parameters.AddWithValue("@selling_price", sp.Text);
-            //    cmd1.Parameters.AddWithValue("@vendor_code", vendor_code);
-            //    int rows = cmd1.ExecuteNonQuery();
-            //    if (rows > 0)
-            //    {
-            //        Response.Write("<script>alert('Successful insertion')</script>");
-            //        gen_name.Text = "";
-            //        trade_name.Text = "";
-            //        med_desc.Text = "";
-            //        pp.Text = "";
-            //        sp.Text = "";
-            //    }
-            //    query = "select * from vendor where vendor_code=@vendor_code";
-            //    cmd1 = new SqlCommand(query, con);
-            //    cmd1.Parameters.AddWithValue("@vendor_code", vendor_code);
-            //    SqlDataReader reader;
-            //    reader = cmd1.ExecuteReader();
-
-            //    while (reader.Read())
-            //    {
-            //        address = reader["address"].ToString();
-            //        vendor_name = reader["vendor_name"].ToString();
-            //    }
-            //    reader.Close();
-            //    l2.Text = address;
-
             string vendor_code = vendorCodeGenerated(vendor_n.Text);
-            //string query = "select * from medicine";
-            //SqlCommand cmd1 = new SqlCommand(query, con);
-            //SqlDataReader reader;
-            //reader = cmd1.ExecuteReader();
-            //while(reader.Read())
-            //{
-            //    medicine_list.Items.Add(reader["medicine_code"].ToString());
-            //}
             string med_code = medicine_list.SelectedValue;
-            //reader.Close();
             insertIntoVendor(con, addr.Text, vendor_n.Text, vendor_code, med_code);
         }
         catch (Exception exc)
