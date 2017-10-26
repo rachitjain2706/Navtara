@@ -10,10 +10,10 @@ public partial class Default2 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(!IsPostBack)
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
+        if (!IsPostBack)
         {
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
             try
             {
                 con.Open();
@@ -36,42 +36,41 @@ public partial class Default2 : System.Web.UI.Page
             {
                 con.Close();
             }
-
-            try
+        }
+        try
+        {
+            con.Open();
+            string query = "select batch_number, medicine_code, vendor_code, remaining from inventory where expiry_date<=@today or remaining<=threshold";
+            SqlCommand cmd1 = new SqlCommand(query, con);
+            string today = DateTime.Today.ToString();
+            cmd1.Parameters.AddWithValue("@today", DateTime.Today);
+            SqlDataReader reader;
+            reader = cmd1.ExecuteReader();
+            while (reader.Read())
             {
-                con.Open();
-                string query = "select batch_number, medicine_code, vendor_code, remaining from inventory where expiry_date<=@today or remaining<=threshold";
-                SqlCommand cmd1 = new SqlCommand(query, con);
-                string today = DateTime.Today.ToString();
-                cmd1.Parameters.AddWithValue("@today", DateTime.Today);
-                SqlDataReader reader;
-                reader = cmd1.ExecuteReader();
-                while (reader.Read())
-                {
-                    TableRow tr = new TableRow();
-                    TableCell tc1 = new TableCell();
-                    tc1.Text = reader["medicine_code"].ToString();
-                    TableCell tc2 = new TableCell();
-                    tc2.Text = reader["vendor_code"].ToString();
-                    TableCell tc3 = new TableCell();
-                    tc3.Text = reader["remaining"].ToString();
-                    TableCell tc4 = new TableCell();
-                    tc4.Text = reader["batch_number"].ToString();
-                    tr.Cells.Add(tc1);
-                    tr.Cells.Add(tc2);
-                    tr.Cells.Add(tc3);
-                    tr.Cells.Add(tc4);
-                    t9.Rows.Add(tr);
-                }
+                TableRow tr = new TableRow();
+                TableCell tc1 = new TableCell();
+                tc1.Text = reader["medicine_code"].ToString();
+                TableCell tc2 = new TableCell();
+                tc2.Text = reader["vendor_code"].ToString();
+                TableCell tc3 = new TableCell();
+                tc3.Text = reader["remaining"].ToString();
+                TableCell tc4 = new TableCell();
+                tc4.Text = reader["batch_number"].ToString();
+                tr.Cells.Add(tc1);
+                tr.Cells.Add(tc2);
+                tr.Cells.Add(tc3);
+                tr.Cells.Add(tc4);
+                t9.Rows.Add(tr);
             }
-            catch (Exception exc)
-            {
-                l2.Text = exc.ToString();
-            }
-            finally
-            {
-                con.Close();
-            }
+        }
+        catch (Exception exc)
+        {
+            l2.Text = exc.ToString();
+        }
+        finally
+        {
+            con.Close();
         }
     }
 
@@ -292,6 +291,11 @@ public partial class Default2 : System.Web.UI.Page
         return code;
     }
 
+    protected void reorder()
+    {
+        Response.Write("<script>alert('PLis work')</script>");
+    }
+
     protected void Button2_Click(object sender, EventArgs e)
     {
         SqlConnection con = new SqlConnection();
@@ -310,11 +314,71 @@ public partial class Default2 : System.Web.UI.Page
             cmd1.Parameters.AddWithValue("@vendor_code", vendor_code);
             cmd1.Parameters.AddWithValue("@purchase_date", today);
             cmd1.Parameters.AddWithValue("@remaining", TextBox3.Text);
-            cmd1.Parameters.AddWithValue("@threshold", 50);
+            cmd1.Parameters.AddWithValue("@threshold", 70);
             int rows = cmd1.ExecuteNonQuery();
             if (rows > 0)
             {
                 Response.Write("<script>alert('Successful insertion')</script>");
+            }
+        }
+        catch (Exception exc)
+        {
+            l2.Text = exc.ToString();
+        }
+        finally
+        {
+            con.Close();
+        }
+
+        float x = 1;
+        try
+        {
+            con.Open();
+            string med_name = TextBox1.Text;
+            string med_code = medicineCode(con, med_name);
+            string query = "select purchasing_price from medicine where medicine_code=@med_code";
+            SqlCommand cmd1 = new SqlCommand(query, con);
+            cmd1.Parameters.AddWithValue("@med_code", med_code);
+            SqlDataReader reader;
+            reader = cmd1.ExecuteReader();
+            while(reader.Read())
+            {
+                float.TryParse(reader["purchasing_price"].ToString(), out x);
+                break;
+            }
+            //l2.Text = x.ToString();
+        }
+        catch(Exception exc)
+        {
+
+        }
+        finally
+        {
+            con.Close();
+        }
+
+
+        try
+        {
+            con.Open();
+            string vendor_code = vendorCode(DropDownList1.SelectedValue);
+            string query = "insert into vendorSales(vendor_code, sale_cost) values(@vendor_code, @sale_cost)";
+            SqlCommand cmd1 = new SqlCommand(query, con);
+            cmd1.Parameters.AddWithValue("@vendor_code", vendor_code);
+            int q;
+            int.TryParse(TextBox3.Text, out q);
+            float cost = q * x;
+            cmd1.Parameters.AddWithValue("@sale_cost", (cost));
+            int rows = cmd1.ExecuteNonQuery();
+            if (rows > 0)
+            {
+                //Label l = new Label();
+                string med_name = TextBox1.Text;
+                l9.Text += "<h4>Receipt</h4><br />";
+                l9.Text += "Medicine Name = " + med_name;
+                l9.Text += "<br />Quantity = " + 1;
+                l9.Text += "<br />Total Cost = " + cost;
+
                 TextBox1.Text = "";
                 TextBox2.Text = "";
                 TextBox3.Text = "";
