@@ -50,7 +50,10 @@ public partial class Default2 : System.Web.UI.Page
             string today = DateTime.Today.ToString();
             cmd1.Parameters.AddWithValue("@today", DateTime.Today);
             SqlDataReader reader;
+            //Array array = new Array();
+            string[] array = new string[100];
             reader = cmd1.ExecuteReader();
+            int count = 0;
             while (reader.Read())
             {
                 //l7.Text = reader["medicine_code"].ToString();
@@ -60,38 +63,20 @@ public partial class Default2 : System.Web.UI.Page
                 row.Cells.Add(cell);
                 cell = new TableCell();
                 cell.Text = reader["batch_number"].ToString();
+                array[count++] = reader["batch_number"].ToString();
                 row.Cells.Add(cell);
                 t4.Rows.Add(row);
-                /*TableRow row = new TableRow();
-                TableCell tableCell = new TableCell();
-                tableCell.Text = reader["medicine_code"].ToString();
-                row.Cells.Add(tableCell);
-
-                tableCell = new TableCell();
-                tableCell.Text = reader["remaining"].ToString();
-                row.Cells.Add(tableCell);
-
-                tableCell = new TableCell();
-                tableCell.Text = reader["purchase_date"].ToString();
-                row.Cells.Add(tableCell);
-
-                tableCell = new TableCell();
-                tableCell.Text = reader["expiry_date"].ToString();
-                row.Cells.Add(tableCell);
-
-                tableCell = new TableCell();
-                tableCell.Text = reader["batch_number"].ToString();
-                row.Cells.Add(tableCell);
-
-                tableCell = new TableCell();
-                tableCell.Text = reader["vendor_name"].ToString();
-                row.Cells.Add(tableCell);
-                t4.Rows.Add(row);*/
             }
+            reader.Close();
+            query = "delete from inventory where expiry_date<=@today";
+            cmd1 = new SqlCommand(query, con);
+            today = DateTime.Today.ToString();
+            cmd1.Parameters.AddWithValue("@today", DateTime.Today);
+            int rows = cmd1.ExecuteNonQuery();
         }
         catch (Exception exc)
         {
-
+            l7.Text = exc.ToString();
         }
         finally
         {
