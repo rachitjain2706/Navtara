@@ -18,16 +18,16 @@
                     <asp:Table runat="server" CssClass="table table-bordered">
                         <asp:TableRow>
                           <asp:TableCell Text="Vendor Name"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="vendor_n"></asp:TextBox></asp:TableCell>
+                          <asp:TableCell><asp:TextBox style="color:black;" runat="server" ID="vendor_n"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell Text="Address"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="addr"></asp:TextBox></asp:TableCell>
+                          <asp:TableCell><asp:TextBox style="color:black;" runat="server" ID="addr"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell Text="Medicine List"></asp:TableCell>
                           <asp:TableCell>
-                              <asp:DropDownList runat="server" ID="medicine_list">
+                              <asp:DropDownList style="color:black; width:198px;font:14px;" runat="server" ID="medicine_list">
                               </asp:DropDownList>
                           </asp:TableCell>
                         </asp:TableRow>
@@ -37,11 +37,16 @@
                         </asp:TableRow>
                     </asp:Table>
 			    </div>
-                <div class="tab-pane" id="2b">
+                <div class="tab-pane" id="2b" onclick="<% rokdaShow();%>">
+                    <asp:Table runat="server" CssClass="table table-bordered" ID="vendorPaymentTable">
+                        <asp:TableHeaderRow>
+                            <asp:TableHeaderCell Text="Vendor Code"></asp:TableHeaderCell>
+                            <asp:TableHeaderCell Text="Price"></asp:TableHeaderCell>
+                        </asp:TableHeaderRow>
+                    </asp:Table>
 				</div>
 			</div>
         </div>
-
     </div>
 </asp:Content>
 
