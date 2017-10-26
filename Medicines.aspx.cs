@@ -47,14 +47,24 @@ public partial class Default2 : System.Web.UI.Page
             con.Open();
             string query = "select medicine_code, batch_number from inventory where expiry_date<=@today";
             SqlCommand cmd1 = new SqlCommand(query, con);
+            string today = DateTime.Today.ToString();
             cmd1.Parameters.AddWithValue("@today", DateTime.Today);
             SqlDataReader reader;
             reader = cmd1.ExecuteReader();
             while (reader.Read())
             {
+                //l7.Text = reader["medicine_code"].ToString();
                 TableRow row = new TableRow();
+                TableCell cell = new TableCell();
+                cell.Text = reader["medicine_code"].ToString();
+                row.Cells.Add(cell);
+                cell = new TableCell();
+                cell.Text = reader["batch_number"].ToString();
+                row.Cells.Add(cell);
+                t4.Rows.Add(row);
+                /*TableRow row = new TableRow();
                 TableCell tableCell = new TableCell();
-                tableCell.Text = reader["generic_name"].ToString();
+                tableCell.Text = reader["medicine_code"].ToString();
                 row.Cells.Add(tableCell);
 
                 tableCell = new TableCell();
@@ -76,7 +86,7 @@ public partial class Default2 : System.Web.UI.Page
                 tableCell = new TableCell();
                 tableCell.Text = reader["vendor_name"].ToString();
                 row.Cells.Add(tableCell);
-                t4.Rows.Add(row);
+                t4.Rows.Add(row);*/
             }
         }
         catch (Exception exc)

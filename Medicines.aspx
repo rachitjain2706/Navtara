@@ -90,6 +90,7 @@
                     </asp:Table>
 		        </div>
                 <div class="tab-pane" id="4b" onclick="<% phaphda();%>">
+                    <asp:Label runat="server" ID="l7"></asp:Label>
                     <asp:Table runat="server" CssClass="table table-bordered" ID="t4">
                         <asp:TableHeaderRow>
                           <asp:TableHeaderCell Text="Medicine Code"></asp:TableHeaderCell>
