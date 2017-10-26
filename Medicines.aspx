@@ -12,7 +12,7 @@
 			    <li><a href="#3b" data-toggle="tab">Inventory</a></li>
 		    </ul>
 
-            <asp:Label runat="server" ID="l2">Hola</asp:Label>
+            <asp:Label runat="server" ID="l2"></asp:Label>
 
 			<div class="tab-content clearfix">
 			    <div class="tab-pane active" id="1b">
@@ -51,6 +51,7 @@
                     </asp:Table>
 			    </div>
                 <div class="tab-pane" id="2b">
+                    <asp:Label runat="server" ID="l3">Hola</asp:Label>
                     <asp:Table runat="server" CssClass="table table-bordered">
                         <asp:TableRow>
                           <asp:TableCell Text="Medicine Name"></asp:TableCell>
@@ -68,8 +69,12 @@
                           <asp:TableCell><asp:TextBox runat="server" ID="TextBox3"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
+                          <asp:TableCell Text="Expiry Date"></asp:TableCell>
+                          <asp:TableCell><asp:TextBox runat="server" ID="TextBox2"></asp:TextBox></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow>
                           <asp:TableCell></asp:TableCell>
-                          <asp:TableCell><asp:Button ID="Button2" runat="server" CssClass="btn btn-primary" Text="Submit"/></asp:TableCell>
+                          <asp:TableCell><asp:Button ID="Button2" runat="server" CssClass="btn btn-primary" Text="Submit" OnClick="Button2_Click"/></asp:TableCell>
                         </asp:TableRow>
                     </asp:Table>
 				</div>

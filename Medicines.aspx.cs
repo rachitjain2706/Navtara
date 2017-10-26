@@ -182,11 +182,64 @@ public partial class Default2 : System.Web.UI.Page
                 vendor_name = reader["vendor_name"].ToString();
             }
             reader.Close();
-            l2.Text = address;
 
             insertIntoVendor(con, address, vendor_name, vendor_code, med_code);
         }
         catch(Exception exc)
+        {
+            l2.Text = exc.ToString();
+        }
+        finally
+        {
+            con.Close();
+        }
+    }
+
+    public string medicineCode(SqlConnection con, string name)
+    {
+        string code = "";
+        SqlCommand cmd = new SqlCommand("Select * from medicine where generic_name=@name", con);
+        cmd.Parameters.AddWithValue("@name", name);
+        SqlDataReader reader;
+        reader = cmd.ExecuteReader();
+        while(reader.Read())
+        {
+            code = reader["medicine_code"].ToString();
+            break;
+        }
+        reader.Close();
+        return code;
+    }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
+        try
+        {
+            con.Open();
+            string med_name = TextBox1.Text;
+            string med_code = medicineCode(con, med_name);
+            string vendor_code = vendorCode(DropDownList1.SelectedValue);
+            string query = "insert into inventory values(@medicine_code, @expiry_date, @purchase_date, @vendor_code, @threshold, @remaining)";
+            SqlCommand cmd1 = new SqlCommand(query, con);
+            DateTime today = DateTime.Today;
+            cmd1.Parameters.AddWithValue("@medicine_code", med_code);
+            cmd1.Parameters.AddWithValue("@expiry_date", TextBox2.Text);
+            cmd1.Parameters.AddWithValue("@vendor_code", vendor_code);
+            cmd1.Parameters.AddWithValue("@purchase_date", today);
+            cmd1.Parameters.AddWithValue("@remaining", TextBox3.Text);
+            cmd1.Parameters.AddWithValue("@threshold", 50);
+            int rows = cmd1.ExecuteNonQuery();
+            if (rows > 0)
+            {
+                Response.Write("<script>alert('Successful insertion')</script>");
+                TextBox1.Text = "";
+                TextBox2.Text = "";
+                TextBox3.Text = "";
+            }
+        }
+        catch (Exception exc)
         {
             l2.Text = exc.ToString();
         }
