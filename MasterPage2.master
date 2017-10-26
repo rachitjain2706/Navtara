@@ -33,6 +33,7 @@
                 </div>
                 <div class="collapse navbar-collapse navbar-menubuilder">
                     <ul class="nav navbar-nav navbar-right">
+                        <li>Search<asp:Button runat="server" OnClick="Unnamed_Click" Text="Search" ID="b1"/></li>
                         <li><a href="/medicines.aspx">Medicines</a> </li>
                         <li><a href="/vendors.aspx">Vendors</a> </li>
                         <li><a href="/sales.aspx">Sales</a> </li>

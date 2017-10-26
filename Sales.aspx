@@ -31,14 +31,17 @@
                           <asp:TableCell><asp:TextBox style="color:black;" runat="server" ID="TextBox2"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                     </asp:Table>
-                    <asp:Button ID="Button2" runat="server" CssClass="btn btn-primary" Text="New Item" />
+                    <asp:Button ID="Button2" runat="server" CssClass="btn btn-primary" Text="New Item" OnClick="Button2_Click" />
                     <asp:Button ID="Button3" runat="server" CssClass="btn btn-primary" Text="Submit" OnClick="Button3_Click" /><br /><br /><br />
                     <h3>Receipt</h3><br /><asp:Table runat="server" ID="show_receipt" CssClass="table table-bordered"></asp:Table>
 			    </div>
                 <div class="tab-pane" id="2b">
                     
 				</div>
-                <div class="tab-pane" id="3b">
+
+                <asp:Label runat="server" ID="l4"></asp:Label>
+
+                <div class="tab-pane" id="3b" onclick="<% monthly_sale(); %>">
                     <asp:Table runat="server" CssClass="table table-bordered" ID="t3">
                         <asp:TableHeaderRow>
                           <asp:TableHeaderCell Text="Medicine Name"></asp:TableHeaderCell>

@@ -11,4 +11,11 @@ public partial class MasterPage2 : System.Web.UI.MasterPage
     {
 
     }
+
+    protected void Unnamed_Click(object sender, EventArgs e)
+    {
+        string url = "Search.aspx?name=";
+        url += b1.Text;
+        Response.Redirect(url);
+    }
 }

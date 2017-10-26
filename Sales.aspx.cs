@@ -170,4 +170,85 @@ public partial class Sales : System.Web.UI.Page
         row.Cells.Add(cell);
         show_receipt.Rows.Add(row);
     }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        count++;
+        TableRow row = new TableRow();
+        TableCell cell = new TableCell();
+        cell.Text = "Medicine";
+        DropDownList dropDownList = new DropDownList();
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
+        try
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Select distinct medicine_code, generic_name from medicine", con);
+            SqlDataReader reader;
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                dropDownList.ID = "txt-" + count;
+                dropDownList.Items.Add(new ListItem(reader["medicine_code"].ToString() + " - " + reader["generic_name"].ToString(), reader["medicine_code"].ToString()));
+                //dropDownList.Style.Add()
+            }
+            TableCell tableCell = new TableCell();
+            tableCell.Controls.Add(dropDownList);
+
+            row.Cells.Add(cell);
+            row.Cells.Add(tableCell);
+            new_row.Rows.Add(row);
+
+            row = new TableRow();
+            cell = new TableCell();
+            cell.Text = "Quantity";
+            tableCell = new TableCell();
+            TextBox tb = new TextBox();
+            tableCell.Controls.Add(tb);
+            row.Cells.Add(cell);
+            row.Cells.Add(tableCell);
+            new_row.Rows.Add(row);
+
+            row = new TableRow();
+            cell = new TableCell();
+            cell.Text = "Cost";
+            tableCell = new TableCell();
+            tb = new TextBox();
+            tableCell.Controls.Add(tb);
+            row.Cells.Add(cell);
+            row.Cells.Add(tableCell);
+            new_row.Rows.Add(row);
+        }
+        catch(Exception exc)
+        {
+
+        }
+        finally
+        {
+            con.Close();
+        }
+    }
+
+    public void monthly_sale()
+    {
+        /*l4.Text = "Rachoi";
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
+        try
+        {
+            con.Open();
+            l4.Text = "";
+            DateTime today = DateTime.Today;
+            string date = today.ToString();
+            string query = "select from sales where date-sales_date < 30";
+        }
+        catch(Exception exc)
+        {
+            l4.Text = exc.ToString();
+        }
+        finally
+        {
+            con.Close();
+        }*/
+    }
 }
