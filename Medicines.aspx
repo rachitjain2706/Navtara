@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div class="container">
 
-        <div id="exTab3" class="container">	
+        <div class="exTab3 container">	
             <ul  class="nav nav-pills">
 			    <li class="active"><a  href="#1b" data-toggle="tab">New Medicine</a></li>
 			    <li><a href="#2b" data-toggle="tab">Reorder Medicine</a></li>
@@ -19,30 +19,29 @@
                     <asp:Table runat="server" CssClass="table table-bordered">
                         <asp:TableRow>
                           <asp:TableCell Text="Trade Name"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="trade_name"></asp:TextBox></asp:TableCell>
+                          <asp:TableCell><asp:TextBox style="color:black;" runat="server" ID="trade_name"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell Text="Generic Name"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="gen_name"></asp:TextBox></asp:TableCell>
+                          <asp:TableCell><asp:TextBox style="color:black;" runat="server" ID="gen_name"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell Text="Medicine Description"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="med_desc"></asp:TextBox></asp:TableCell>
+                          <asp:TableCell><asp:TextBox style="color:black;" runat="server" ID="med_desc"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell Text="Vendor List"></asp:TableCell>
                           <asp:TableCell>
-                              <asp:DropDownList runat="server" ID="vendor_list">
-                              </asp:DropDownList>
+                              <asp:DropDownList style="color:black; font-size:14px; width:182px;" runat="server" ID="vendor_list">                              </asp:DropDownList>
                           </asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell Text="Selling Price"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="sp"></asp:TextBox></asp:TableCell>
+                          <asp:TableCell><asp:TextBox style="color:black;" runat="server" ID="sp"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell Text="Purchasing price"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="pp"></asp:TextBox></asp:TableCell>
+                          <asp:TableCell><asp:TextBox style="color:black;" runat="server" ID="pp"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell></asp:TableCell>
@@ -51,26 +50,25 @@
                     </asp:Table>
 			    </div>
                 <div class="tab-pane" id="2b">
-                    <asp:Label runat="server" ID="l3">Hola</asp:Label>
                     <asp:Table runat="server" CssClass="table table-bordered">
                         <asp:TableRow>
                           <asp:TableCell Text="Medicine Name"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="TextBox1"></asp:TextBox></asp:TableCell>
+                          <asp:TableCell><asp:TextBox style="color:black;" runat="server" ID="TextBox1"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell Text="Vendor List"></asp:TableCell>
                           <asp:TableCell>
-                              <asp:DropDownList runat="server" ID="DropDownList1">
+                              <asp:DropDownList style="color:black; font-size:14px; width:182px;" runat="server" ID="DropDownList1">
                               </asp:DropDownList>
                           </asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell Text="Quantity"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="TextBox3"></asp:TextBox></asp:TableCell>
+                          <asp:TableCell><asp:TextBox style="color:black;" runat="server" ID="TextBox3"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell Text="Expiry Date"></asp:TableCell>
-                          <asp:TableCell><asp:TextBox runat="server" ID="TextBox2"></asp:TextBox></asp:TableCell>
+                          <asp:TableCell><asp:TextBox style="color:black;" runat="server" ID="TextBox2"></asp:TextBox></asp:TableCell>
                         </asp:TableRow>
                         <asp:TableRow>
                           <asp:TableCell></asp:TableCell>
