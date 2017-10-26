@@ -10,6 +10,7 @@
 			    <li class="active"><a  href="#1b" data-toggle="tab">New Medicine</a></li>
 			    <li><a href="#2b" data-toggle="tab">Reorder Medicine</a></li>
 			    <li><a href="#3b" data-toggle="tab">Inventory</a></li>
+                <li><a href="#4b" data-toggle="tab">Expiry</a></li>
 		    </ul>
 
             <asp:Label runat="server" ID="l2"></asp:Label>
@@ -88,6 +89,14 @@
                         </asp:TableHeaderRow>
                     </asp:Table>
 		        </div>
+                <div class="tab-pane" id="4b" onclick="<% phaphda();%>">
+                    <asp:Table runat="server" CssClass="table table-bordered" ID="t4">
+                        <asp:TableHeaderRow>
+                          <asp:TableHeaderCell Text="Medicine Code"></asp:TableHeaderCell>
+                          <asp:TableHeaderCell Text="Batch Number"></asp:TableHeaderCell>
+                        </asp:TableHeaderRow>
+                    </asp:Table>
+                </div>
 			</div>
         </div>
 
