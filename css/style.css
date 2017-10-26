@@ -135,7 +135,7 @@ legend
     color: #FFFFFF;
 }
 
- textarea.form-control
+textarea.form-control
 {
     border-style: none none dotted none;
     border-width: 1px;
@@ -154,12 +154,13 @@ legend
     transition: all .3s;
 }
 
+/*
 textarea, 
 textarea.form-control {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	line-height: 30px;   color: #fff;
-}
+}*/
 
 input[type="text"]:focus, 
 textarea:focus, 
