@@ -376,7 +376,7 @@ public partial class Default2 : System.Web.UI.Page
                 string med_name = TextBox1.Text;
                 l9.Text += "<h4>Receipt</h4><br />";
                 l9.Text += "Medicine Name = " + med_name;
-                l9.Text += "<br />Quantity = " + 1;
+                l9.Text += "<br />Quantity = " + q;
                 l9.Text += "<br />Total Cost = " + cost;
 
                 TextBox1.Text = "";

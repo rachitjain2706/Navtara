@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 public partial class Sales : System.Web.UI.Page
 {
     public int count = 0;
+    List<TableRow> TableRows;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -110,6 +111,17 @@ public partial class Sales : System.Web.UI.Page
         }
     }*/
 
+
+    public string medicineCode(string name)
+    {
+        string code = "";
+        for (int i = 0; i < 6; i++)
+        {
+            code += name[i];
+        }
+        return code;
+    }
+
     protected void Button3_Click(object sender, EventArgs e)
     {
         //SqlConnection con = new SqlConnection();
@@ -169,11 +181,118 @@ public partial class Sales : System.Web.UI.Page
         cell.Text = (val1 * val2).ToString();
         row.Cells.Add(cell);
         show_receipt.Rows.Add(row);
+
+
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
+        string pp = "";
+        float pp_val;
+
+        string code = medicineCode(DropDownList1.SelectedValue);
+
+        try
+        {
+            con.Open();
+            string query = "select purchasing_price from medicine where medicine_code=@med_code";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@med_code", code);
+            SqlDataReader reader;
+            reader = cmd.ExecuteReader();
+            while(reader.Read())
+            {
+                pp = reader["purchasing_price"].ToString();
+                break;
+            }
+        }
+        catch(Exception exc)
+        {
+
+        }
+        finally
+        {
+            con.Close();
+        }
+
+        float.TryParse(pp, out pp_val);
+        float sp;
+        float.TryParse(TextBox2.Text, out sp);
+        float val = sp - pp_val;
+
+        try
+        {
+            con.Open();
+            string query = "insert into sales (medicine_code, quantity, price, sale_date, revenue) values(@med_code, @quantity, @price, @sale_date, @revenue)";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@med_code", code);
+            cmd.Parameters.AddWithValue("@quantity", TextBox1.Text);
+            cmd.Parameters.AddWithValue("@price", TextBox2.Text);
+            cmd.Parameters.AddWithValue("@sale_date", DateTime.Today.ToString());
+            cmd.Parameters.AddWithValue("@revenue", val);
+            int rows = cmd.ExecuteNonQuery();
+            if(rows > 0)
+            {
+                Response.Write("<script>alert('Work plis')</script>");
+            }
+        }
+        catch (Exception exc)
+        {
+
+        }
+        finally
+        {
+            con.Close();
+        }
+
+
+        try
+        {
+            con.Open();
+            string query = "update medicine set selling_price = @sp where medicine_code=@med_code";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@med_code", code);
+            cmd.Parameters.AddWithValue("@sp", sp.ToString());
+            int rows = cmd.ExecuteNonQuery();
+            if (rows > 0)
+            {
+                Response.Write("<script>alert('Work plis')</script>");
+            }
+        }
+        catch (Exception exc)
+        {
+
+        }
+        finally
+        {
+            con.Close();
+        }
+
+
+        try
+        {
+            con.Open();
+            string query = "update medicine set selling_price = @sp where medicine_code=@med_code";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@med_code", code);
+            cmd.Parameters.AddWithValue("@sp", sp.ToString());
+            int rows = cmd.ExecuteNonQuery();
+            if (rows > 0)
+            {
+                Response.Write("<script>alert('Work plis')</script>");
+            }
+        }
+        catch (Exception exc)
+        {
+
+        }
+        finally
+        {
+            con.Close();
+        }
     }
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        count++;
+        /*count++;
         TableRow row = new TableRow();
         TableCell cell = new TableCell();
         cell.Text = "Medicine";
@@ -197,7 +316,8 @@ public partial class Sales : System.Web.UI.Page
 
             row.Cells.Add(cell);
             row.Cells.Add(tableCell);
-            new_row.Rows.Add(row);
+            //new_row.Rows.Add(row);
+            TableRows.Add(row);
 
             row = new TableRow();
             cell = new TableCell();
@@ -207,7 +327,8 @@ public partial class Sales : System.Web.UI.Page
             tableCell.Controls.Add(tb);
             row.Cells.Add(cell);
             row.Cells.Add(tableCell);
-            new_row.Rows.Add(row);
+            //new_row.Rows.Add(row);
+            TableRows.Add(row);
 
             row = new TableRow();
             cell = new TableCell();
@@ -217,7 +338,8 @@ public partial class Sales : System.Web.UI.Page
             tableCell.Controls.Add(tb);
             row.Cells.Add(cell);
             row.Cells.Add(tableCell);
-            new_row.Rows.Add(row);
+            //new_row.Rows.Add(row);
+            TableRows.Add(row);
         }
         catch(Exception exc)
         {
@@ -226,7 +348,7 @@ public partial class Sales : System.Web.UI.Page
         finally
         {
             con.Close();
-        }
+        }*/
     }
 
     public void monthly_sale()

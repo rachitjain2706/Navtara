@@ -14,7 +14,7 @@
 
 			<div class="tab-content clearfix">
 			    <div class="tab-pane active" id="1b">
-                    <asp:Table runat="server" CssClass="table table-bordered" id="new_row">                        
+                    <asp:Table runat="server" CssClass="table table-bordered" id="new_row" >
                         <asp:TableRow>
                           <asp:TableCell Text="Medicine"></asp:TableCell>
                           <asp:TableCell>
