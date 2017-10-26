@@ -8,10 +8,10 @@
         <div id="exTab3" class="container">	
             <ul  class="nav nav-pills">
 			    <li class="active"><a  href="#1b" data-toggle="tab">New Vendor</a></li>
-			    <li><a href="#2b" data-toggle="tab">Rokda</a></li>
+			    <li><a href="#2b" data-toggle="tab">Vendor wise payments</a></li>
 		    </ul>
 
-            <asp:Label runat="server" ID="l2">Hola</asp:Label>
+            <asp:Label runat="server" ID="l2"></asp:Label>
 
 			<div class="tab-content clearfix">
 			    <div class="tab-pane active" id="1b">

@@ -265,19 +265,25 @@ public partial class Sales : System.Web.UI.Page
         {
             con.Close();
         }
-
+        List<int> arr1 = new List<int>();
+        List<int> arr2 = new List<int>();
 
         try
         {
             con.Open();
-            string query = "update medicine set selling_price = @sp where medicine_code=@med_code";
+            string query = "select * from inventory where medicine_code=@med_code";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@med_code", code);
-            cmd.Parameters.AddWithValue("@sp", sp.ToString());
-            int rows = cmd.ExecuteNonQuery();
-            if (rows > 0)
+            SqlDataReader reader;
+            reader = cmd.ExecuteReader();
+            while(reader.Read())
             {
-                Response.Write("<script>alert('Work plis')</script>");
+                //Response.Write("<script>alert('Work plis')</script>");
+                int vc, rem;
+                int.TryParse(reader["vendor_code"].ToString(), out vc);
+                int.TryParse(reader["remaining"].ToString(), out rem);
+                arr1.Add(vc);
+                arr2.Add(rem);
             }
         }
         catch (Exception exc)
@@ -288,6 +294,53 @@ public partial class Sales : System.Web.UI.Page
         {
             con.Close();
         }
+
+        string q = TextBox1.Text;
+        int z;
+        int.TryParse(q, out z);
+
+        for(int i = 0; i < arr2.Count; i++)
+        {
+            if(arr2[i] >= z)
+            {
+                arr2[i] -= z;
+                break;
+            }
+            else
+            {
+                z -= arr2[i];
+                arr2[i] = 0;
+            }
+        }
+
+        try
+        {
+            con.Open();
+            string query = "select * from inventory where medicine_code=@med_code";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@med_code", code);
+            SqlDataReader reader;
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                //Response.Write("<script>alert('Work plis')</script>");
+                int vc, rem;
+                int.TryParse(reader["vendor_code"].ToString(), out vc);
+                int.TryParse(reader["remaining"].ToString(), out rem);
+                arr1.Add(vc);
+                arr2.Add(rem);
+            }
+        }
+        catch (Exception exc)
+        {
+
+        }
+        finally
+        {
+            con.Close();
+        }
+
+
     }
 
     protected void Button2_Click(object sender, EventArgs e)

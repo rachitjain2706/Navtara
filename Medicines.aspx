@@ -99,7 +99,7 @@
                         </asp:TableHeaderRow>
                     </asp:Table>
 		        </div>
-                <div class="tab-pane" id="4b" onclick="<% phaphda();%>">
+                <div class="tab-pane" id="4b" onclick="<% show();%>">
                     <asp:Label runat="server" ID="l7"></asp:Label>
                     <asp:Table runat="server" CssClass="table table-bordered" ID="t4">
                         <asp:TableHeaderRow>

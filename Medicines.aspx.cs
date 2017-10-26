@@ -74,7 +74,7 @@ public partial class Default2 : System.Web.UI.Page
         }
     }
 
-    protected void phaphda()
+    protected void show()
     {
         SqlConnection con = new SqlConnection();
         con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
@@ -409,7 +409,7 @@ public partial class Default2 : System.Web.UI.Page
             reader = cmd1.ExecuteReader();
             if (reader.Read())
             {
-                l2.Text = "YESSSSS!";
+                
             }
         }
         catch (Exception exc)

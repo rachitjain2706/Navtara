@@ -56,6 +56,8 @@ public partial class Vendors : System.Web.UI.Page
 
     protected void rokdaShow()
     {
+        l2.Text = "yes";
+        //Response.Write("<script>alert('Pila')</script>");
         SqlConnection con = new SqlConnection();
         con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
         try
