@@ -38,6 +38,57 @@ public partial class Default2 : System.Web.UI.Page
         }
     }
 
+    protected void phaphda()
+    {
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
+        try
+        {
+            con.Open();
+            string query = "select medicine_code, batch_number from inventory where expiry_date<=@today";
+            SqlCommand cmd1 = new SqlCommand(query, con);
+            cmd1.Parameters.AddWithValue("@today", DateTime.Today);
+            SqlDataReader reader;
+            reader = cmd1.ExecuteReader();
+            while (reader.Read())
+            {
+                TableRow row = new TableRow();
+                TableCell tableCell = new TableCell();
+                tableCell.Text = reader["generic_name"].ToString();
+                row.Cells.Add(tableCell);
+
+                tableCell = new TableCell();
+                tableCell.Text = reader["remaining"].ToString();
+                row.Cells.Add(tableCell);
+
+                tableCell = new TableCell();
+                tableCell.Text = reader["purchase_date"].ToString();
+                row.Cells.Add(tableCell);
+
+                tableCell = new TableCell();
+                tableCell.Text = reader["expiry_date"].ToString();
+                row.Cells.Add(tableCell);
+
+                tableCell = new TableCell();
+                tableCell.Text = reader["batch_number"].ToString();
+                row.Cells.Add(tableCell);
+
+                tableCell = new TableCell();
+                tableCell.Text = reader["vendor_name"].ToString();
+                row.Cells.Add(tableCell);
+                t4.Rows.Add(row);
+            }
+        }
+        catch (Exception exc)
+        {
+
+        }
+        finally
+        {
+            con.Close();
+        }
+    }
+
     protected void inventory_diplay()
     {
         SqlConnection con = new SqlConnection();
@@ -205,6 +256,7 @@ public partial class Default2 : System.Web.UI.Page
         while(reader.Read())
         {
             code = reader["medicine_code"].ToString();
+            reader.Close();
             break;
         }
         reader.Close();
