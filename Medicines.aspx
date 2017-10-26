@@ -76,6 +76,16 @@
                           <asp:TableCell><asp:Button ID="Button2" runat="server" CssClass="btn btn-primary" Text="Submit" OnClick="Button2_Click"/></asp:TableCell>
                         </asp:TableRow>
                     </asp:Table>
+                    <asp:Label runat="server" ID="l9"></asp:Label>
+                    <h4>Reorder list</h4>
+                    <asp:Table runat="server" ID="t9" CssClass="table table-bordered">
+                        <asp:TableHeaderRow>
+                            <asp:TableCell Text="Medicine Code"></asp:TableCell>
+                            <asp:TableCell Text="Vendor Code"></asp:TableCell>
+                            <asp:TableCell Text="Remaining"></asp:TableCell>
+                            <asp:TableCell Text="Batch Number"></asp:TableCell>
+                        </asp:TableHeaderRow>
+                    </asp:Table>
 				</div>
                 <div class="tab-pane" id="3b" onclick="<% inventory_diplay();%>">
                     <asp:Table runat="server" CssClass="table table-bordered" ID="t3">

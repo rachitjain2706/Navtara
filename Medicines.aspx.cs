@@ -26,10 +26,47 @@ public partial class Default2 : System.Web.UI.Page
                     vendor_list.Items.Add(reader["vendor_code"].ToString() + " - " + reader["vendor_name"].ToString());
                     DropDownList1.Items.Add(reader["vendor_code"].ToString() + " - " + reader["vendor_name"].ToString());
                 }
+                reader.Close();
             }
             catch(Exception exc)
             {
 
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            try
+            {
+                con.Open();
+                string query = "select batch_number, medicine_code, vendor_code, remaining from inventory where expiry_date<=@today or remaining<=threshold";
+                SqlCommand cmd1 = new SqlCommand(query, con);
+                string today = DateTime.Today.ToString();
+                cmd1.Parameters.AddWithValue("@today", DateTime.Today);
+                SqlDataReader reader;
+                reader = cmd1.ExecuteReader();
+                while (reader.Read())
+                {
+                    TableRow tr = new TableRow();
+                    TableCell tc1 = new TableCell();
+                    tc1.Text = reader["medicine_code"].ToString();
+                    TableCell tc2 = new TableCell();
+                    tc2.Text = reader["vendor_code"].ToString();
+                    TableCell tc3 = new TableCell();
+                    tc3.Text = reader["remaining"].ToString();
+                    TableCell tc4 = new TableCell();
+                    tc4.Text = reader["batch_number"].ToString();
+                    tr.Cells.Add(tc1);
+                    tr.Cells.Add(tc2);
+                    tr.Cells.Add(tc3);
+                    tr.Cells.Add(tc4);
+                    t9.Rows.Add(tr);
+                }
+            }
+            catch (Exception exc)
+            {
+                l2.Text = exc.ToString();
             }
             finally
             {
@@ -50,8 +87,6 @@ public partial class Default2 : System.Web.UI.Page
             string today = DateTime.Today.ToString();
             cmd1.Parameters.AddWithValue("@today", DateTime.Today);
             SqlDataReader reader;
-            //Array array = new Array();
-            string[] array = new string[100];
             reader = cmd1.ExecuteReader();
             int count = 0;
             while (reader.Read())
@@ -63,7 +98,6 @@ public partial class Default2 : System.Web.UI.Page
                 row.Cells.Add(cell);
                 cell = new TableCell();
                 cell.Text = reader["batch_number"].ToString();
-                array[count++] = reader["batch_number"].ToString();
                 row.Cells.Add(cell);
                 t4.Rows.Add(row);
             }
@@ -284,6 +318,34 @@ public partial class Default2 : System.Web.UI.Page
                 TextBox1.Text = "";
                 TextBox2.Text = "";
                 TextBox3.Text = "";
+            }
+        }
+        catch (Exception exc)
+        {
+            l2.Text = exc.ToString();
+        }
+        finally
+        {
+            con.Close();
+        }
+    }
+
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = @"Data Source = (localdb)\MSSQLlocaldb; Initial Catalog = Navtara; Integrated Security = True";
+        try
+        {
+            con.Open();
+            string query = "select medicine_code, vendor_code, remaining from inventory where expiry_date<=@today or remaining<=threshold";
+            SqlCommand cmd1 = new SqlCommand(query, con);
+            string today = DateTime.Today.ToString();
+            cmd1.Parameters.AddWithValue("@today", DateTime.Today);
+            SqlDataReader reader;
+            reader = cmd1.ExecuteReader();
+            if (reader.Read())
+            {
+                l2.Text = "YESSSSS!";
             }
         }
         catch (Exception exc)
