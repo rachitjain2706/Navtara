@@ -44,7 +44,7 @@
                 <div class="tab-pane" id="3b" onclick="<% monthly_sale(); %>">
                     <asp:Table runat="server" CssClass="table table-bordered" ID="t3">
                         <asp:TableHeaderRow>
-                          <asp:TableHeaderCell Text="Medicine Name"></asp:TableHeaderCell>
+                          <asp:TableHeaderCell Text="Medicine"></asp:TableHeaderCell>
                           <asp:TableHeaderCell Text="Quantity"></asp:TableHeaderCell>
                           <asp:TableHeaderCell Text="Purchase Date"></asp:TableHeaderCell>
                           <asp:TableHeaderCell Text="Expiry Date"></asp:TableHeaderCell>
